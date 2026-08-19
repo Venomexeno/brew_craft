@@ -9,7 +9,11 @@ class SectionLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8, top: 2),
-      child: Text(text, style: Theme.of(context).textTheme.labelSmall),
+      child: Text(text, style: _labelStyle(context)),
     );
+  }
+
+  TextStyle? _labelStyle(BuildContext context) {
+    return Theme.of(context).textTheme.labelSmall;
   }
 }

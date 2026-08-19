@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
-import '../../../../core/styles/app_colors.dart';
 import '../enums/addon_enum.dart';
 import '../enums/cup_size_enum.dart';
 import '../enums/drink_kind_enum.dart';
@@ -76,30 +74,9 @@ class BrewOrder extends Equatable {
 
   @override
   List<Object?> get props => [
-    drink,
-    size,
-    vessel,
-    addons,
-  ];
-}
-
-/// Shared chip decoration so every selector feels like one system.
-BoxDecoration brewChipDeco({required bool selected, double radius = 18}) {
-  return BoxDecoration(
-    color: selected ? AppColors.espresso : AppColors.surface,
-    borderRadius: BorderRadius.circular(radius),
-    border: Border.all(
-      color: selected ? AppColors.espresso : AppColors.creamDeep,
-      width: 1.2,
-    ),
-    boxShadow: [
-      BoxShadow(
-        color: selected
-            ? AppColors.espresso.withValues(alpha: 0.22)
-            : AppColors.shadow,
-        blurRadius: selected ? 16 : 8,
-        offset: const Offset(0, 6),
-      ),
-    ],
-  );
+        drink,
+        size,
+        vessel,
+        addons,
+      ];
 }

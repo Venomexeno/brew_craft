@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/styles/app_colors.dart';
+import '../../data/models/brew.dart';
 import '../form_values/craft_screen_form_values.dart';
 
 class BrewButton extends StatefulWidget {
-  final CraftScreenFormValues formValues;
+  const BrewButton({super.key, required this.formValues});
 
-  const BrewButton({
-    super.key,
-    required this.formValues,
-  });
+  final CraftScreenFormValues formValues;
 
   @override
   State<BrewButton> createState() => _BrewButtonState();
@@ -26,19 +24,21 @@ class _BrewButtonState extends State<BrewButton> {
         width: double.infinity,
         height: 56,
         child: FilledButton(
-          onPressed: _onPresed,
-          style: _style,
+          onPressed: _onPressed,
+          style: _buttonStyle(),
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 320),
             switchInCurve: Curves.easeOutBack,
-            child: _Child(brewed: _brewed, formValues: widget.formValues),
+            child: _brewed
+                ? const _BrewedLabel()
+                : _BrewItLabel(orderNotifier: widget.formValues.orderNotifier),
           ),
         ),
       ),
     );
   }
 
-  ButtonStyle get _style {
+  ButtonStyle _buttonStyle() {
     return FilledButton.styleFrom(
       backgroundColor: AppColors.espresso,
       foregroundColor: AppColors.foam,
@@ -47,7 +47,7 @@ class _BrewButtonState extends State<BrewButton> {
     );
   }
 
-  void _onPresed() async {
+  Future<void> _onPressed() async {
     setState(() => _brewed = true);
     await widget.formValues.cta.reverse();
     await widget.formValues.cta.forward();
@@ -56,43 +56,48 @@ class _BrewButtonState extends State<BrewButton> {
   }
 }
 
-class _Child extends StatelessWidget {
-  final bool brewed;
-  final CraftScreenFormValues formValues;
-
-  const _Child({required this.brewed, required this.formValues});
+class _BrewedLabel extends StatelessWidget {
+  const _BrewedLabel();
 
   @override
   Widget build(BuildContext context) {
-    return brewed
-        ? const Row(
-            key: ValueKey('done'),
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.check_rounded, color: AppColors.honey),
-              SizedBox(width: 8),
-              Text(
-                'Crafted — enjoy',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          )
-        : ListenableBuilder(
-            listenable: formValues.orderNotifier,
-            builder: (context, _) {
-              final total = formValues.orderNotifier.value.total;
-              return Text(
-                'Brew it  ·  \$${total.toStringAsFixed(2)}',
-                key: const ValueKey('brew'),
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16,
-                ),
-              );
-            },
-          );
+    return Row(
+      key: const ValueKey('done'),
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(Icons.check_rounded, color: AppColors.honey),
+        const SizedBox(width: 8),
+        Text('Crafted — enjoy', style: _labelStyle()),
+      ],
+    );
+  }
+
+  static TextStyle _labelStyle() {
+    return const TextStyle(fontWeight: FontWeight.w700, fontSize: 16);
+  }
+}
+
+class _BrewItLabel extends StatelessWidget {
+  const _BrewItLabel({required this.orderNotifier});
+
+  final ValueNotifier<BrewOrder> orderNotifier;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListenableBuilder(
+      listenable: orderNotifier,
+      builder: (context, _) {
+        final total = orderNotifier.value.total;
+        return Text(
+          'Brew it  ·  \$${total.toStringAsFixed(2)}',
+          key: const ValueKey('brew'),
+          style: _labelStyle(),
+        );
+      },
+    );
+  }
+
+  TextStyle _labelStyle() {
+    return const TextStyle(fontWeight: FontWeight.w700, fontSize: 16);
   }
 }

@@ -19,13 +19,17 @@ class DrinkNameWidget extends StatelessWidget {
           child: Text(
             drink.label,
             key: ValueKey(drink),
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppColors.cocoa,
-              fontWeight: FontWeight.w600,
-            ),
+            style: _labelStyle(context),
           ),
         );
       },
     );
+  }
+
+  TextStyle? _labelStyle(BuildContext context) {
+    return Theme.of(context).textTheme.bodyMedium?.copyWith(
+          color: AppColors.cocoa,
+          fontWeight: FontWeight.w600,
+        );
   }
 }

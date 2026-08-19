@@ -14,13 +14,6 @@ class BrewOptionsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final options = [
-      BrewOptionWidget.blend(formValues.orderNotifier),
-      BrewOptionWidget.size(formValues.orderNotifier),
-      BrewOptionWidget.vessel(formValues.orderNotifier),
-      BrewOptionWidget.addons(formValues.orderNotifier),
-    ];
-
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: 1),
       duration: const Duration(milliseconds: 700),
@@ -29,30 +22,37 @@ class BrewOptionsWidget extends StatelessWidget {
         return Opacity(
           opacity: t,
           child: Transform.translate(
-            offset: Offset(
-              0,
-              (1 - t) * 18,
-            ),
+            offset: Offset(0, (1 - t) * 18),
             child: child,
           ),
         );
       },
       child: DecoratedBox(
-        decoration: _decoration(),
+        decoration: _panelDecoration(),
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 18),
           child: Column(
-            crossAxisAlignment: .start,
-            mainAxisSize: .min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             spacing: 16,
-            children: options,
+            children: _options(),
           ),
         ),
       ),
     );
   }
 
-  BoxDecoration _decoration() {
+  List<Widget> _options() {
+    final orderNotifier = formValues.orderNotifier;
+    return [
+      BrewOptionWidget.blend(orderNotifier),
+      BrewOptionWidget.size(orderNotifier),
+      BrewOptionWidget.vessel(orderNotifier),
+      BrewOptionWidget.addons(orderNotifier),
+    ];
+  }
+
+  BoxDecoration _panelDecoration() {
     return BoxDecoration(
       color: AppColors.panel,
       borderRadius: BorderRadius.circular(28),

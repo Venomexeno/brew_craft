@@ -53,7 +53,7 @@ class _AnimatedCupState extends State<AnimatedCup>
                       duration: const Duration(milliseconds: 700),
                       width: 280,
                       height: 280,
-                      decoration: _decoration(),
+                      decoration: _glowDecoration(),
                     ),
                   ),
                   CustomPaint(
@@ -69,7 +69,7 @@ class _AnimatedCupState extends State<AnimatedCup>
     );
   }
 
-  BoxDecoration _decoration() {
+  BoxDecoration _glowDecoration() {
     final glow = _controller.glowLiquid;
     return BoxDecoration(
       shape: BoxShape.circle,

@@ -20,15 +20,9 @@ class BrewCraftHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'BREWCRAFT',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
+                Text('BREWCRAFT', style: _brandStyle(context)),
                 const SizedBox(height: 4),
-                Text(
-                  'Compose your cup',
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
+                Text('Compose your cup', style: _titleStyle(context)),
                 const SizedBox(height: 6),
                 DrinkNameWidget(orderNotifier: orderNotifier),
               ],
@@ -38,5 +32,13 @@ class BrewCraftHeader extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  TextStyle? _brandStyle(BuildContext context) {
+    return Theme.of(context).textTheme.labelSmall;
+  }
+
+  TextStyle? _titleStyle(BuildContext context) {
+    return Theme.of(context).textTheme.displaySmall;
   }
 }
