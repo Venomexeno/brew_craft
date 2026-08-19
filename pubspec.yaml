@@ -1,0 +1,23 @@
+name: brew_craft
+description: "BrewCraft — a portfolio-grade Flutter drink-ordering app built to showcase advanced UI & animation work."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.12.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  google_fonts: ^6.2.1
+  equatable: ^2.1.0
+  responsive_framework: ^1.5.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
