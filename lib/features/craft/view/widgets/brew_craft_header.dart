@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/styles/app_colors.dart';
 import '../../data/models/brew.dart';
 import 'animated_price_widget.dart';
+import 'drink_name_widget.dart';
 
 class BrewCraftHeader extends StatelessWidget {
   const BrewCraftHeader({super.key, required this.orderNotifier});
@@ -30,17 +30,7 @@ class BrewCraftHeader extends StatelessWidget {
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
                 const SizedBox(height: 6),
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 280),
-                  child: Text(
-                    orderNotifier.value.drink.label,
-                    key: ValueKey(orderNotifier.value.drink),
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.cocoa,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+                DrinkNameWidget(orderNotifier: orderNotifier),
               ],
             ),
           ),
