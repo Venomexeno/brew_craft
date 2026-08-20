@@ -1,7 +1,7 @@
 name: brew_craft
 description: "BrewCraft — a portfolio-grade Flutter drink-ordering app built to showcase advanced UI & animation work."
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.1+1
 
 environment:
   sdk: ">=3.12.0 <4.0.0"
